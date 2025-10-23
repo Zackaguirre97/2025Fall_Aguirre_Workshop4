@@ -55,32 +55,32 @@ public class Dealership {
 
     // *** Methods ***
     // Return a list of vehicles filtered by min and max price.
-    public List<Vehicle> getVehicleByPrice(double min, double max) {
+    public List<Vehicle> getVehiclesByPrice(double min, double max) {
         return new ArrayList<>();
     }
 
     // Return a list of vehicles filtered by vehicle make and model.
-    public List<Vehicle> getVehicleByMake(String make, String model) {
+    public List<Vehicle> getVehiclesByMake(String make, String model) {
         return new ArrayList<>();
     }
 
     // Return a list of vehicles filtered by min and max year.
-    public List<Vehicle> getVehicleByYear(int min, int max) {
+    public List<Vehicle> getVehiclesByYear(int min, int max) {
         return new ArrayList<>();
     }
 
     // Return a list of vehicles filtered by vehicle color.
-    public List<Vehicle> getVehicleByColor(String color) {
+    public List<Vehicle> getVehiclesByColor(String color) {
         return new ArrayList<>();
     }
 
     // Return a list of vehicles filtered by minimum and maximum mileage.
-    public List<Vehicle> getVehicleByMileage(int min, int max) {
+    public List<Vehicle> getVehiclesByMileage(int min, int max) {
         return new ArrayList<>();
     }
 
     // Return a list of vehicles filtered by vehicle type.
-    public List<Vehicle> getVehicleByType(String type) {
+    public List<Vehicle> getVehiclesByType(String type) {
         return new ArrayList<>();
     }
 

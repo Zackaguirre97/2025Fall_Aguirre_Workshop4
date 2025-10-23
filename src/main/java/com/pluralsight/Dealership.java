@@ -83,4 +83,9 @@ public class Dealership {
     public List<Vehicle> getVehicleByType(String type) {
         return new ArrayList<>();
     }
+
+    // Return a list of all vehicles.
+    public List<Vehicle> getAllVehicles() {
+        return new ArrayList<>();
+    }
 }

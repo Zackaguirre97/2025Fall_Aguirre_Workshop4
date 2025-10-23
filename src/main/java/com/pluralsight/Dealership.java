@@ -52,4 +52,11 @@ public class Dealership {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    // *** Methods ***
+    // Return a list of vehicles filtered by min and max price.
+    public List<Vehicle> getVehicleByPrice(double min, double max) {
+        return new ArrayList<>();
+    }
+
 }

@@ -63,4 +63,9 @@ public class Dealership {
     public List<Vehicle> getVehicleByMake(String make, String model) {
         return new ArrayList<>();
     }
+
+    // Return a list of vehicles filtered by min and max year.
+    public List<Vehicle> getVehicleByYear(int min, int max) {
+        return new ArrayList<>();
+    }
 }

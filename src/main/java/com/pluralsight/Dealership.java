@@ -88,4 +88,9 @@ public class Dealership {
     public List<Vehicle> getAllVehicles() {
         return new ArrayList<>();
     }
+
+    // Add a vehicle to the list
+    public void addVehicle(Vehicle vehicle) {
+
+    }
 }

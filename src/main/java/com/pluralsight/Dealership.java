@@ -78,4 +78,9 @@ public class Dealership {
     public List<Vehicle> getVehicleByMileage(int min, int max) {
         return new ArrayList<>();
     }
+
+    // Return a list of vehicles filtered by vehicle type.
+    public List<Vehicle> getVehicleByType(String type) {
+        return new ArrayList<>();
+    }
 }

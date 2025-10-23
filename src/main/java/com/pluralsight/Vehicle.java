@@ -14,5 +14,15 @@ package com.pluralsight;
 * Vehicle contains all relevant data about and represents a single vehicle.
 * */
 public class Vehicle {
-
+    /*
+     * *** Props ***
+     */
+    private String vin;
+    private String year;
+    private String make;
+    private String model;
+    private String vehicleType;
+    private String color;
+    private int odometer;
+    private double price;
 }

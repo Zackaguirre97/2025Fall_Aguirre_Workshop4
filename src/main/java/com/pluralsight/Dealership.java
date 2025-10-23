@@ -89,8 +89,13 @@ public class Dealership {
         return new ArrayList<>();
     }
 
-    // Add a vehicle to the list
+    // Add a vehicle to the list.
     public void addVehicle(Vehicle vehicle) {
+
+    }
+
+    // Remove a vehicle from the list of vehicles.
+    public void removeVehicle(Vehicle vehicle) {
 
     }
 }

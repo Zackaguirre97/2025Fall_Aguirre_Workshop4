@@ -12,14 +12,18 @@ import java.util.List;
 * Dealership can ADD and REMOVE vehicles to and from the list of vehicles.
 */
 public class Dealership {
-    // *** Props ***
+    /*
+     * *** Props ***
+     */
     private String name;
     private String address;
     private String phone;
 
     private List<Vehicle> vehicleList;
 
-    // *** Const ***
+    /*
+     * *** Const ***
+     */
     public Dealership(String name, String address, String phone) {
         this.name = name;
         this.address = address;
@@ -28,7 +32,9 @@ public class Dealership {
         vehicleList  = new ArrayList<>();
     }
 
-    // *** Getters/Setters
+    /*
+     * *** Getters/Setters ***
+     */
     public String getName() {
         return name;
     }
@@ -53,7 +59,9 @@ public class Dealership {
         this.phone = phone;
     }
 
-    // *** Methods ***
+    /*
+     * *** Methods ***
+     */
     // Return a list of vehicles filtered by min and max price.
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
         return new ArrayList<>();

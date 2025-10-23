@@ -68,4 +68,9 @@ public class Dealership {
     public List<Vehicle> getVehicleByYear(int min, int max) {
         return new ArrayList<>();
     }
+
+    // Return a list of vehicles filtered by vehicle color.
+    public List<Vehicle> getVehicleByColor(String color) {
+        return new ArrayList<>();
+    }
 }

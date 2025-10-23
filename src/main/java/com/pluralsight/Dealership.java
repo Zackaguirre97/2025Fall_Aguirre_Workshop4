@@ -9,4 +9,8 @@ package com.pluralsight;
 * Dealership can ADD and REMOVE vehicles to and from the list of vehicles.
 */
 public class Dealership {
+    // *** Props ***
+    private String name;
+    private String address;
+    private String phone;
 }

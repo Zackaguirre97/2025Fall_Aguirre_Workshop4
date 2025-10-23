@@ -73,4 +73,9 @@ public class Dealership {
     public List<Vehicle> getVehicleByColor(String color) {
         return new ArrayList<>();
     }
+
+    // Return a list of vehicles filtered by minimum and maximum mileage.
+    public List<Vehicle> getVehicleByMileage(int min, int max) {
+        return new ArrayList<>();
+    }
 }

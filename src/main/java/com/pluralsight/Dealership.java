@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 * Dealership contains the following fields: name, address, and phone number.
 * Dealership contains a list of all the vehicles on its lot.
@@ -13,4 +16,6 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
+
+    private List<Vehicle> vehicleList = new ArrayList<>();
 }

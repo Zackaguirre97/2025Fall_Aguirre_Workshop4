@@ -23,7 +23,7 @@ public class DealershipFileManager {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line; // String to hold the entire line being read.
             while((line = bufferedReader.readLine()) != null) {
-                // Split the line up by pipes ("|") and store in an array.
+                // Split the line by pipes ("|") and store in an array.
                 String[] parts = line.split("\\|");
                 // Set the database properties.
                 if (parts.length == 3) {
@@ -58,5 +58,10 @@ public class DealershipFileManager {
         }
         // Send/return the dealership created from the file
         return dealership;
+    }
+
+    // Save a dealership object (and its List of Vehicle objects) to a file.
+    public static void saveDealership(Dealership dealership) {
+
     }
 }

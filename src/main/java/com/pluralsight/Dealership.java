@@ -158,6 +158,6 @@ public class Dealership {
 
     // Remove a vehicle from the list of vehicles.
     public void removeVehicle(Vehicle vehicle) {
-
+        this.vehicleList.remove(vehicle);
     }
 }

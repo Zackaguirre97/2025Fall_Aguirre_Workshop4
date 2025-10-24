@@ -77,7 +77,7 @@ public class Dealership {
     }
 
     // Return a list of vehicles filtered by vehicle make and model.
-    public List<Vehicle> getVehiclesByMake(String make, String model) {
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
         return new ArrayList<>();
     }
 

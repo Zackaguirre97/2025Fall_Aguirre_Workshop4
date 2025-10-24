@@ -18,7 +18,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
-
+    // List property
     private List<Vehicle> vehicleList;
 
     /*
@@ -64,6 +64,20 @@ public class Dealership {
      */
     // Return a list of vehicles filtered by min and max price.
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
+        for(Vehicle vehicle : vehicleList) {
+            if(vehicle.getPrice() > min && vehicle.getPrice() < max) {
+                System.out.printf("%s|%s|%s|%s|%s|%s|%i|%.2f",
+                        vehicle.getVin(),
+                        vehicle.getYear(),
+                        vehicle.getMake(),
+                        vehicle.getModel(),
+                        vehicle.getVehicleType(),
+                        vehicle.getColor(),
+                        vehicle.getOdometer(),
+                        vehicle.getPrice());
+            }
+        }
+
         return new ArrayList<>();
     }
 

@@ -148,7 +148,7 @@ public class Dealership {
 
     // Return a list of all vehicles.
     public List<Vehicle> getAllVehicles() {
-        return new ArrayList<>();
+        return vehicleList;
     }
 
     // Add a vehicle to the list.

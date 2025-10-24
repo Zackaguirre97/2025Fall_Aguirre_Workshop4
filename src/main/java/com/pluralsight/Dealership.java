@@ -120,7 +120,16 @@ public class Dealership {
 
     // Return a list of vehicles filtered by minimum and maximum mileage.
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
-        return new ArrayList<>();
+        // List to be filled with only the filtered vehicles and then returned.
+        List<Vehicle> filteredVehicleList = new ArrayList<>();
+        // Loop through all vehicles and add the relevant ones to the return list.
+        for(Vehicle vehicle : vehicleList) {
+            if(vehicle.getOdometer() > min && vehicle.getOdometer() < max) {
+                filteredVehicleList.add(vehicle);
+            }
+        }
+        // Return the filtered list of vehicles.
+        return filteredVehicleList;
     }
 
     // Return a list of vehicles filtered by vehicle type.

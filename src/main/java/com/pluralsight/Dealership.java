@@ -64,21 +64,16 @@ public class Dealership {
      */
     // Return a list of vehicles filtered by min and max price.
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
+        // List to be filled with only the filtered vehicles and then returned.
+        List<Vehicle> filteredVehicleList = new ArrayList<>();
+        // Loop through all vehicles and add the relevant ones to the return list.
         for(Vehicle vehicle : vehicleList) {
             if(vehicle.getPrice() > min && vehicle.getPrice() < max) {
-                System.out.printf("%s|%s|%s|%s|%s|%s|%i|%.2f",
-                        vehicle.getVin(),
-                        vehicle.getYear(),
-                        vehicle.getMake(),
-                        vehicle.getModel(),
-                        vehicle.getVehicleType(),
-                        vehicle.getColor(),
-                        vehicle.getOdometer(),
-                        vehicle.getPrice());
+                filteredVehicleList.add(vehicle);
             }
         }
-
-        return new ArrayList<>();
+        // Return the filtered list of vehicles.
+        return filteredVehicleList;
     }
 
     // Return a list of vehicles filtered by vehicle make and model.

@@ -14,5 +14,6 @@ import java.io.IOException;
 *   - can save a passed dealership object to a file.
 * */
 public class DealershipFileManager {
-
+    // Path to the file containing all the Elite Motor Exotics dealership vehicles.
+    public static final String FILE_PATH = "src/main/resources/inventory.csv";
 }

@@ -21,7 +21,33 @@ public class DealershipFileManager {
         Dealership dealership = null;
         // Try to read the file.
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH))) {
-
+            String line; // String to hold the entire line being read.
+            while((line = bufferedReader.readLine()) != null) {
+                // Split the line up by pipes ("|") and store in an array.
+                String[] parts = line.split("\\|");
+                // Set the database properties.
+                if (parts.length == 3) {
+                    dealership = new Dealership(
+                            parts[0].trim(), // Name
+                            parts[1].trim(), // Address
+                            parts[2].trim()  // Phone
+                    );
+                } // Set the Vehicle properties.
+                if(parts.length == 8 && dealership != null) {
+                    Vehicle vehicle = new Vehicle(
+                            parts[0].trim(),                       // Vin
+                            parts[1].trim(),                       // Year
+                            parts[2].trim(),                       // Make
+                            parts[3].trim(),                       // Model
+                            parts[4].trim(),                       // Vehicle Type
+                            parts[5].trim(),                       // Color
+                            Integer.parseInt(parts[6].trim()),     // Odometer
+                            Double.parseDouble(parts[7].trim())    // Price
+                    );
+                    // Add the newly created vehicle to the Dealership vehicleList.
+                    dealership.addVehicle(vehicle);
+                }
+            }
         } // Catch the following exceptions.
         catch (FileNotFoundException ex) {
             System.err.println("Error: File not found!");

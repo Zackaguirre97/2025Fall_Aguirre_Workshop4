@@ -17,4 +17,9 @@ package com.pluralsight;
 * UserInterface handles user interactions and executing the requested processes.
 */
 public class UserInterface {
+    /*
+    * *** Props ***
+    * */
+    // Dealership instance
+    private Dealership dealership;
 }

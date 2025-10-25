@@ -22,4 +22,11 @@ public class UserInterface {
     * */
     // Dealership instance
     private Dealership dealership;
+
+    /*
+     * *** Const ***
+     * */
+    // No args
+    public UserInterface() {
+    }
 }

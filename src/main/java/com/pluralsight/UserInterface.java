@@ -42,7 +42,7 @@ public class UserInterface {
     // *** Private ***
     // Handle initializing the Dealership
     private void init() {
-
+        this.dealership = DealershipFileManager.getDealership();
     }
 
     // Handle the user requests to get a list of vehicles by price

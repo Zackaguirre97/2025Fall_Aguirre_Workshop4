@@ -40,6 +40,11 @@ public class UserInterface {
     }
 
     // *** Private ***
+    // Handle initializing the Dealership
+    private void init() {
+
+    }
+
     // Handle the user requests to get a list of vehicles by price
     private void processGetByPriceRequest() {
 

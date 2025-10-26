@@ -131,7 +131,8 @@ public class UserInterface {
 
     // Handle the user requests to get a list of all vehicles
     private void processGetAllVehiclesRequest() {
-        System.out.println("All vehicle search");
+        List<Vehicle> displayList = dealership.getAllVehicles();
+        displayVehicles(displayList);
     }
 
     // Handle the user requests to add a vehicle to the list

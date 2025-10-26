@@ -74,4 +74,9 @@ public class UserInterface {
     private void processGetAllVehiclesRequest() {
 
     }
+
+    // Handle the user requests to add a vehicle to the list
+    private void processAddVehicleRequest() {
+
+    }
 }

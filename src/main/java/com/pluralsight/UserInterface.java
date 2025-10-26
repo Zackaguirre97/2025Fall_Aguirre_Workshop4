@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -71,6 +72,7 @@ public class UserInterface {
                 case 7 -> processGetAllVehiclesRequest();
                 case 8 -> processAddVehicleRequest();
                 case 9 -> processRemoveVehicleRequest();
+                case 10 -> processPurchaseVehicleRequest();
                 case 99 -> running = false;
                 default -> System.out.println("\nInvalid entry: Please enter a number from the list (1-9 & 99)");
             }
@@ -95,6 +97,7 @@ public class UserInterface {
         System.out.println("7. List ALL vehicles");
         System.out.println("8. Add a vehicle");
         System.out.println("9. Remove a vehicle");
+        System.out.println("10. Purchase a vehicle");
         System.out.println("99. Quit");
         System.out.print("Select an option: ");
     }
@@ -172,27 +175,248 @@ public class UserInterface {
 
     // Handle the user requests to get a list of vehicles by make & model
     private void processGetByMakeModelRequest() {
-        System.out.println("Make/model search");
+        // Method variables
+        Scanner sc = new Scanner(System.in);
+        String make = "";
+        String model = "";
+        while (true) {
+            System.out.print("Enter the make (e.g. 'Porsche', 'Ferrari', 'Nissan', etc. OR 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+            make = input;
+            break;
+        }
+
+        while (true) {
+            System.out.print("Enter the model (e.g. 'Portofino', 'M8 Competition', 'Huracán EVO', etc. OR 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+            model = input;
+            break;
+        }
+
+        // --- Display results ---
+        List<Vehicle> results = dealership.getVehiclesByMakeModel(make, model);
+        if (results.isEmpty()) {
+            System.out.println("No vehicles found with that make and model.");
+        } else {
+            System.out.printf("Vehicles matching %s %s:%n", make, model);
+            displayVehicles(results);
+        }
     }
 
     // Handle the user requests to get a list of vehicles by year
     private void processGetByYearRequest() {
-        System.out.println("Year search");
+        Scanner sc = new Scanner(System.in);
+        int min = 0;
+        int max = 0;
+
+        // --- Get minimum year ---
+        while (true) {
+            System.out.print("Enter the minimum year (or 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isInteger(input)) {
+                min = Integer.parseInt(input);
+                if (min < 1950) {
+                    System.out.println("Error: Please enter a value greater than 1950!");
+                    continue;
+                }
+                if (min > 2026) {
+                    System.out.println("Error: Min must be less than 2027!");
+                    continue;
+                }
+                break; // valid min entered
+            } else {
+                System.out.println("Error: Please enter a valid number (e.g. 1990 or 2025)!");
+            }
+        }
+
+        // --- Get maximum year ---
+        while (true) {
+            System.out.print("Enter the maximum year (or 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isInteger(input)) {
+                max = Integer.parseInt(input);
+                if (max <= min) {
+                    System.out.println("Error: Max year must be greater than min year!");
+                    continue;
+                }
+                if (max > 2026) {
+                    System.out.println("Error: Max must be less than 2026!");
+                    continue;
+                }
+                break; // valid max entered
+            } else {
+                System.out.println("Error: Please enter a valid number (e.g. 1990 or 2025)!");
+            }
+        }
+
+        // --- Display results ---
+        List<Vehicle> results = dealership.getVehiclesByYear(min, max);
+        if (results.isEmpty()) {
+            System.out.println("No vehicles found in that year range.");
+        } else {
+            System.out.printf("Vehicles between %d and %d:%n", min, max);
+            displayVehicles(results);
+        }
     }
 
     // Handle the user requests to get a list of vehicles by color
     private void processGetByColorRequest() {
-        System.out.println("Color search");
+        // Method variables
+        Scanner sc = new Scanner(System.in);
+        String color = "";
+        while (true) {
+            System.out.print("Enter the color (e.g. 'Blue', 'Red', 'Black', etc. OR 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+            color = input;
+            break;
+        }
+
+        // --- Display results ---
+        List<Vehicle> results = dealership.getVehiclesByColor(color);
+        if (results.isEmpty()) {
+            System.out.println("No vehicles found with that color.");
+        } else {
+            System.out.printf("Vehicles with a color of: %s%n", color);
+            displayVehicles(results);
+        }
     }
 
     // Handle the user requests to get a list of vehicles by mileage
     private void processGetByMileageRequest() {
-        System.out.println("Mileage search");
+        Scanner sc = new Scanner(System.in);
+        int min = 0;
+        int max = 0;
+
+        // --- Get minimum year ---
+        while (true) {
+            System.out.print("Enter the minimum mileage (or 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isInteger(input)) {
+                min = Integer.parseInt(input);
+                if (min < 1) {
+                    System.out.println("Error: Please enter a value greater than 0!");
+                    continue;
+                }
+                if (min > 500000) {
+                    System.out.println("Error: Min must be less than 150000!");
+                    continue;
+                }
+                break; // valid min entered
+            } else {
+                System.out.println("Error: Please enter a valid number (e.g. 50 or 125000)!");
+            }
+        }
+
+        // --- Get maximum year ---
+        while (true) {
+            System.out.print("Enter the maximum mileage (or 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isInteger(input)) {
+                max = Integer.parseInt(input);
+                if (max <= min) {
+                    System.out.println("Error: Max mileage must be greater than min mileage!");
+                    continue;
+                }
+                if (max > 500000) {
+                    System.out.println("Error: Max must be less than 500000!");
+                    continue;
+                }
+                break; // valid max entered
+            } else {
+                System.out.println("Error: Please enter a valid number (e.g. 50 or 1250000)!");
+            }
+        }
+
+        // --- Display results ---
+        List<Vehicle> results = dealership.getVehiclesByMileage(min, max);
+        if (results.isEmpty()) {
+            System.out.println("No vehicles found in that mileage range.");
+        } else {
+            System.out.printf("Vehicles between %d and %d:%n", min, max);
+            displayVehicles(results);
+        }
     }
 
     // Handle the user requests to get a list of vehicles by vehicle type
     private void processGetByVehicleTypeRequest() {
-        System.out.println("Vehicle Type search");
+        // Method variables
+        Scanner sc = new Scanner(System.in);
+        String type = "";
+        while (true) {
+            System.out.print("Enter the type (e.g. 'Coupe', 'Sedan', 'SUV', etc. OR 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+            type = input;
+            break;
+        }
+
+        // --- Display results ---
+        List<Vehicle> results = dealership.getVehiclesByType(type);
+        if (results.isEmpty()) {
+            System.out.println("No vehicles found matching that type.");
+        } else {
+            System.out.printf("Vehicles with a type of: %s%n", type);
+            displayVehicles(results);
+        }
     }
 
     // Handle the user requests to get a list of all vehicles
@@ -203,12 +427,217 @@ public class UserInterface {
 
     // Handle the user requests to add a vehicle to the list
     private void processAddVehicleRequest() {
-        System.out.println("Add vehicle");
+        Scanner sc = new Scanner(System.in);
+        // Temp variables to store the new vehicle data.
+        String vin;
+        String year;
+        String make;
+        String model;
+        String type;
+        String color;
+        int odometer;
+        double price;
+
+        String input;
+        while(true) {
+            System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            vin = input;
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the year (e.g. '1990', '2000', '2025', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            year = input;
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the make (e.g. 'Porsche', 'Ferrari', 'Nissan', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            make = input;
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the model (e.g. 'Portofino', 'M8 Competition', 'Huracán EVO', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            model = input;
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the type (e.g. 'Coupe', 'Sedan', 'SUV', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            type = input;
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the color (e.g. 'Blue', 'Red', 'Black', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            color = input;
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the odometer (e.g. '50', '20000', '150000', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isInteger(input)) {
+                odometer = Integer.parseInt(input);
+                if (odometer < 0) {
+                    System.out.println("Error: Please enter a positive number!");
+                    continue;
+                }
+            } else {
+                System.out.println("Error: Please enter a number!");
+                continue;
+            }
+            break;
+        }
+
+        while(true) {
+            System.out.print("Enter the price (e.g. '150000', '749999.99', '2500000', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isDouble(input)) {
+                price = Double.parseDouble(input);
+                if (price < 0) {
+                    System.out.println("Error: Please enter a positive number!");
+                    continue;
+                }
+            } else {
+                System.out.println("Error: Please enter a number!");
+                continue;
+            }
+            break;
+        }
+
+        Vehicle vehicleToAdd = new Vehicle(vin, year, make, model, type, color, odometer, price);
+
+        System.out.println("Adding vehicle...");
+        dealership.addVehicle(vehicleToAdd);
+        DealershipFileManager.saveDealership(dealership);
+        System.out.println("Process completed!");
     }
 
     // Handle the user requests to remove a vehicle from the list
     private void processRemoveVehicleRequest() {
-        System.out.println("Remove a vehicle");
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            Vehicle vehicleToRemove = dealership.getVehicleByVin(input);
+            if (vehicleToRemove == null) {
+                System.out.println("Error: No vehicle found matching that vin!");
+            } else {
+                System.out.printf("Removing vehicle with vin: %s%n", input);
+                dealership.removeVehicle(vehicleToRemove);
+                DealershipFileManager.saveDealership(dealership);
+                System.out.println("Process completed!");
+                return;
+            }
+        }
+    }
+
+    // Handle the user requests to remove a vehicle from the list
+    private void processPurchaseVehicleRequest() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            Vehicle vehicleToPurchase = dealership.getVehicleByVin(input);
+            if (vehicleToPurchase == null) {
+                System.out.println("Error: No vehicle found matching that vin!");
+            } else {
+                System.out.println("Purchase successful!");
+                System.out.printf("Removing vehicle with vin: %s from the vehicle list.%n", input);
+                dealership.removeVehicle(vehicleToPurchase);
+                DealershipFileManager.saveDealership(dealership);
+                System.out.println("Process completed!");
+                return;
+            }
+        }
     }
 
     // Handle the printing of the vehicle data

@@ -40,6 +40,40 @@ public class UserInterface {
     // *** Public ***
     // Display/Handle the main menu
     public void display() {
+        // Local variables
+        boolean running = true;
+        // Initialize the dealership object instance.
+        init();
+        // Loop the main menu
+        while(running) {
+            mainMenu();
+            // Gather and store the user input
+            String mainMenuChoice = sc.nextLine().trim();
+            int convertedMainMenuChoice;
+            // Make sure the input is a number.
+            if(isInteger(mainMenuChoice)) {
+                // Convert the user input to an int.
+                convertedMainMenuChoice = Integer.parseInt(mainMenuChoice);
+            }
+            else {
+                System.out.println("Invalid entry: Please enter a number (1, 2, 3, etc.)");
+                break;
+            }
+            // Evaluate the input and direct the user to the relevant method.
+            switch(convertedMainMenuChoice) {
+                case 1 -> processGetByPriceRequest();
+                case 2 -> processGetByMakeModelRequest();
+                case 3 -> processGetByYearRequest();
+                case 4 -> processGetByColorRequest();
+                case 5 -> processGetByMileageRequest();
+                case 6 -> processGetByVehicleTypeRequest();
+                case 7 -> processGetAllVehiclesRequest();
+                case 8 -> processAddVehicleRequest();
+                case 9 -> processRemoveVehicleRequest();
+                case 99 -> running = false;
+                default -> System.out.println("Invalid entry: Please enter a number from the list (1-9 & 99)");
+            }
+        }
     }
 
     // *** Private ***
@@ -66,47 +100,47 @@ public class UserInterface {
 
     // Handle the user requests to get a list of vehicles by price
     private void processGetByPriceRequest() {
-
+        System.out.println("Price search");
     }
 
     // Handle the user requests to get a list of vehicles by make & model
     private void processGetByMakeModelRequest() {
-
+        System.out.println("Make/model search");
     }
 
     // Handle the user requests to get a list of vehicles by year
     private void processGetByYearRequest() {
-
+        System.out.println("Year search");
     }
 
     // Handle the user requests to get a list of vehicles by color
     private void processGetByColorRequest() {
-
+        System.out.println("Color search");
     }
 
     // Handle the user requests to get a list of vehicles by mileage
     private void processGetByMileageRequest() {
-
+        System.out.println("Mileage search");
     }
 
     // Handle the user requests to get a list of vehicles by vehicle type
     private void processGetByVehicleTypeRequest() {
-
+        System.out.println("Vehicle Type search");
     }
 
     // Handle the user requests to get a list of all vehicles
     private void processGetAllVehiclesRequest() {
-
+        System.out.println("All vehicle search");
     }
 
     // Handle the user requests to add a vehicle to the list
     private void processAddVehicleRequest() {
-
+        System.out.println("Add vehicle");
     }
 
     // Handle the user requests to remove a vehicle from the list
     private void processRemoveVehicleRequest() {
-
+        System.out.println("Remove a vehicle");
     }
 
     // Check if the passed string is an integer.

@@ -33,8 +33,15 @@ public class UserInterface {
     /*
      * *** Methods ***
      * */
+    // *** Public ***
     // Display/Handle the main menu
     public void display() {
+
+    }
+
+    // *** Private ***
+    // Handle the user requests to get a list of vehicles by price
+    private void processGetByPriceRequest() {
 
     }
 }

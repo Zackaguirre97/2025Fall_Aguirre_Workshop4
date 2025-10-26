@@ -54,4 +54,9 @@ public class UserInterface {
     private void processGetByYearRequest() {
 
     }
+
+    // Handle the user requests to get a list of vehicles by color
+    private void processGetByColorRequest() {
+
+    }
 }

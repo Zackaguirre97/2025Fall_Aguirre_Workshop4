@@ -49,4 +49,9 @@ public class UserInterface {
     private void processGetByMakeModelRequest() {
 
     }
+
+    // Handle the user requests to get a list of vehicles by year
+    private void processGetByYearRequest() {
+
+    }
 }

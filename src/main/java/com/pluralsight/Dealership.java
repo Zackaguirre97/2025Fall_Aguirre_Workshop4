@@ -28,8 +28,7 @@ public class Dealership {
         this.name = name;
         this.address = address;
         this.phone = phone;
-
-        vehicleList  = new ArrayList<>();
+        this.vehicleList  = new ArrayList<>();
     }
 
     /*

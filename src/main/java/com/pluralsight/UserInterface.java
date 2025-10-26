@@ -64,4 +64,9 @@ public class UserInterface {
     private void processGetByMileageRequest() {
 
     }
+
+    // Handle the user requests to get a list of vehicles by vehicle type
+    private void processGetByVehicleTypeRequest() {
+
+    }
 }

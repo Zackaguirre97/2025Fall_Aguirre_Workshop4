@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -141,6 +142,22 @@ public class UserInterface {
     // Handle the user requests to remove a vehicle from the list
     private void processRemoveVehicleRequest() {
         System.out.println("Remove a vehicle");
+    }
+
+    // Handle the printing of the vehicle data
+    private void displayVehicles(List<Vehicle> vehiclesToDisplay) {
+        for(Vehicle vehicle : vehiclesToDisplay) {
+            System.out.printf("%s|%s|%s|%s|%s|%s|%d|%.2f\n",
+                    vehicle.getVin(),           // Vin
+                    vehicle.getYear(),          // Year
+                    vehicle.getMake(),          // Make
+                    vehicle.getModel(),         // Model
+                    vehicle.getVehicleType(),   // Vehicle Type
+                    vehicle.getColor(),         // Color
+                    vehicle.getOdometer(),      // Odometer
+                    vehicle.getPrice()          // Price
+            );
+        }
     }
 
     // Check if the passed string is an integer.

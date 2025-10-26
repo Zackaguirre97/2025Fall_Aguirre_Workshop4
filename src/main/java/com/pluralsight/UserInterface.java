@@ -29,4 +29,12 @@ public class UserInterface {
     // No args
     public UserInterface() {
     }
+
+    /*
+     * *** Methods ***
+     * */
+    // Display/Handle the main menu
+    public void display() {
+
+    }
 }

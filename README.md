@@ -42,7 +42,6 @@ DealershipManagementSystem/
 │   │   ├── Vehicle.java
 │   │   ├── DealershipFileManager.java
 │   │   ├── UserInterface.java
-│   │   └── ... other supporting files
 │
 ├── resources/
 │   ├── dealership-data.txt
@@ -56,17 +55,19 @@ DealershipManagementSystem/
 ## 🖼️ Screenshots
 
 ```
+```
 - **Main Menu:**  
-  ![Main Menu](resources/screenshots/main-menu.png)
+  ![Main Menu](src/main/resources/Screenshot_01.png)
 
 - **Add Vehicle:**  
-  ![Add Vehicle](resources/screenshots/add-vehicle.png)
+  ![Add Vehicle](src/main/resources/Screenshot_02.png)
 
 - **Purchase Vehicle:**  
-  ![Purchase Vehicle](resources/screenshots/purchase-vehicle.png)
+  ![Purchase Vehicle](src/main/resources/Screenshot_03.png)
 
 - **View All Vehicles:**  
-  ![View All Vehicles](resources/screenshots/view-all.png)
+  ![View All Vehicles](src/main/resources/Screenshot_04.png)
+```
 ```
 ---
 

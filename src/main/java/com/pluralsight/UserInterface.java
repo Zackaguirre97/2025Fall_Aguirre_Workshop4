@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.util.Scanner;
+
 /*
 * UserInterface contains the following fields:
 * - Dealership
@@ -22,12 +24,14 @@ public class UserInterface {
     * */
     // Dealership instance
     private Dealership dealership;
+    private Scanner sc;
 
     /*
      * *** Const ***
      * */
     // No args
     public UserInterface() {
+        this.sc = new Scanner(System.in);
     }
 
     /*
@@ -36,7 +40,6 @@ public class UserInterface {
     // *** Public ***
     // Display/Handle the main menu
     public void display() {
-
     }
 
     // *** Private ***
@@ -104,5 +107,29 @@ public class UserInterface {
     // Handle the user requests to remove a vehicle from the list
     private void processRemoveVehicleRequest() {
 
+    }
+
+    // Check if the passed string is an integer.
+    private boolean isInteger(String s) {
+        if (s == null || s.isEmpty()) return false;
+        try {
+            Integer.parseInt(s);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        } // Done
+    }
+
+    // Check if the passed string is a double.
+    private boolean isDouble(String s) {
+        if (s == null || s.isEmpty()) return false;
+        try {
+            Double.parseDouble(s);
+            return true;
+        }
+        catch (NumberFormatException e) {
+            return false;
+        } // Done
     }
 }

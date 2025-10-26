@@ -59,4 +59,9 @@ public class UserInterface {
     private void processGetByColorRequest() {
 
     }
+
+    // Handle the user requests to get a list of vehicles by mileage
+    private void processGetByMileageRequest() {
+
+    }
 }

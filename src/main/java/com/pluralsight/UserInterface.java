@@ -69,4 +69,9 @@ public class UserInterface {
     private void processGetByVehicleTypeRequest() {
 
     }
+
+    // Handle the user requests to get a list of all vehicles
+    private void processGetAllVehiclesRequest() {
+
+    }
 }

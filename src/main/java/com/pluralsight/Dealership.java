@@ -59,6 +59,10 @@ public class Dealership {
         this.phone = phone;
     }
 
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
     /*
      * *** Methods ***
      */
@@ -82,7 +86,7 @@ public class Dealership {
         List<Vehicle> filteredVehicleList = new ArrayList<>();
         // Loop through all vehicles and add the relevant ones to the return list.
         for(Vehicle vehicle : vehicleList) {
-            if(vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)) {
+            if(vehicle.getMake().toUpperCase().contains(make.toUpperCase()) && vehicle.getModel().toUpperCase().contains(model.toUpperCase())) {
                 filteredVehicleList.add(vehicle);
             }
         }
@@ -110,7 +114,7 @@ public class Dealership {
         List<Vehicle> filteredVehicleList = new ArrayList<>();
         // Loop through all vehicles and add the relevant ones to the return list.
         for(Vehicle vehicle : vehicleList) {
-            if(vehicle.getColor().equalsIgnoreCase(color)) {
+            if(vehicle.getColor().toUpperCase().contains(color.toUpperCase())) {
                 filteredVehicleList.add(vehicle);
             }
         }
@@ -138,12 +142,26 @@ public class Dealership {
         List<Vehicle> filteredVehicleList = new ArrayList<>();
         // Loop through all vehicles and add the relevant ones to the return list.
         for(Vehicle vehicle : vehicleList) {
-            if(vehicle.getVehicleType().equalsIgnoreCase(type)) {
+            if(vehicle.getVehicleType().toUpperCase().contains(type.toUpperCase())) {
                 filteredVehicleList.add(vehicle);
             }
         }
         // Return the filtered list of vehicles.
         return filteredVehicleList;
+    }
+
+    // Return a list of vehicles matching the passed vin.
+    public Vehicle getVehicleByVin(String vin) {
+        Vehicle returnVehicle = null;
+        // Loop through all vehicles and add the relevant ones to the return list.
+        for(Vehicle vehicle : vehicleList) {
+            if(vehicle.getVin().equals(vin)) {
+                returnVehicle = vehicle;
+                break;
+            }
+        }
+        // Return the filtered list of vehicles.
+        return returnVehicle;
     }
 
     // Return a list of all vehicles.

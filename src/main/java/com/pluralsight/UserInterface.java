@@ -44,4 +44,9 @@ public class UserInterface {
     private void processGetByPriceRequest() {
 
     }
+
+    // Handle the user requests to get a list of vehicles by make & model
+    private void processGetByMakeModelRequest() {
+
+    }
 }

@@ -1,9 +1,7 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.time.format.DateTimeFormatter;
 
 /*
 * DealershipFileManager is responsible for all file operations for the program.
@@ -12,7 +10,7 @@ import java.io.IOException;
 *   - can create a new Dealership object by reading a file.
 * - saveDealership(dealership)
 *   - can save a passed dealership object to a file.
-* */
+*/
 public class DealershipFileManager {
     // Path to the file containing all the Elite Motor Exotics dealership vehicles.
     public static final String FILE_PATH = "src/main/resources/inventory.csv";
@@ -50,11 +48,11 @@ public class DealershipFileManager {
             }
         } // Catch the following exceptions.
         catch (FileNotFoundException ex) {
-            System.err.println("Error: File not found!");
+            System.err.println("\nError: File not found!\n");
         } catch (IOException ex) {
-            System.err.println("Error: IOException encountered");
+            System.err.println("\nError: IOException encountered\n");
         } catch (Exception ex) {
-            System.err.println("Error: Uh oh... How did we even get here?");
+            System.err.println("\nError: Uh oh... How did we even get here?\n");
         }
         // Send/return the dealership created from the file
         return dealership;
@@ -62,6 +60,32 @@ public class DealershipFileManager {
 
     // Save a dealership object (and its List of Vehicle objects) to a file.
     public static void saveDealership(Dealership dealership) {
-
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            writer.write(String.format("%s|%s|%s\n",
+                    dealership.getName(),       // Dealership name
+                    dealership.getAddress(),    // Dealership address
+                    dealership.getPhone()       // Dealership phone
+            ));
+            for (Vehicle vehicle : dealership.getVehicleList()) {
+                writer.write(String.format("%s|%s|%s|%s|%s|%s|%d|%.2f\n",
+                        vehicle.getVin(),           // Vin
+                        vehicle.getYear(),          // Year
+                        vehicle.getMake(),          // Make
+                        vehicle.getModel(),         // Model
+                        vehicle.getVehicleType(),   // Vehicle Type
+                        vehicle.getColor(),         // Color
+                        vehicle.getOdometer(),      // Odometer
+                        vehicle.getPrice()          // Price
+                ));
+            }
+            // Close the writer
+            writer.close();
+        }
+        catch(IOException e) {
+            System.out.println("Error: IOException");
+        }
+        catch(Exception e) {
+            System.out.println("Error: File Writer error");
+        }
     }
 }

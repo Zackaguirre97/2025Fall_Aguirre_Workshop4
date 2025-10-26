@@ -25,14 +25,13 @@ public class UserInterface {
     * */
     // Dealership instance
     private Dealership dealership;
-    private Scanner sc;
 
     /*
      * *** Const ***
      * */
     // No args
     public UserInterface() {
-        this.sc = new Scanner(System.in);
+
     }
 
     /*
@@ -41,6 +40,7 @@ public class UserInterface {
     // *** Public ***
     // Display/Handle the main menu
     public void display() {
+        Scanner sc = new Scanner(System.in);
         // Local variables
         boolean running = true;
         // Initialize the dealership object instance.
@@ -57,7 +57,7 @@ public class UserInterface {
                 convertedMainMenuChoice = Integer.parseInt(mainMenuChoice);
             }
             else {
-                System.out.println("Invalid entry: Please enter a number (1, 2, 3, etc.)");
+                System.out.println("\nInvalid entry: Please enter a number (1, 2, 3, etc.)");
                 break;
             }
             // Evaluate the input and direct the user to the relevant method.
@@ -72,7 +72,7 @@ public class UserInterface {
                 case 8 -> processAddVehicleRequest();
                 case 9 -> processRemoveVehicleRequest();
                 case 99 -> running = false;
-                default -> System.out.println("Invalid entry: Please enter a number from the list (1-9 & 99)");
+                default -> System.out.println("\nInvalid entry: Please enter a number from the list (1-9 & 99)");
             }
         }
     }
@@ -96,12 +96,78 @@ public class UserInterface {
         System.out.println("8. Add a vehicle");
         System.out.println("9. Remove a vehicle");
         System.out.println("99. Quit");
-        System.out.println("Select an option: ");
+        System.out.print("Select an option: ");
     }
 
-    // Handle the user requests to get a list of vehicles by price
     private void processGetByPriceRequest() {
-        System.out.println("Price search");
+        Scanner sc = new Scanner(System.in);
+        double min = 0;
+        double max = 0;
+
+        // --- Get minimum price ---
+        while (true) {
+            System.out.print("Enter the minimum price (or 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isDouble(input)) {
+                min = Double.parseDouble(input);
+                if (min < 50000) {
+                    System.out.println("Error: Please enter a value greater than 50,000!");
+                    continue;
+                }
+                if (min > 5000000) {
+                    System.out.println("Error: Min must be less than 5,000,000!");
+                    continue;
+                }
+                break; // valid min entered
+            } else {
+                System.out.println("Error: Please enter a valid number (e.g. 100000 or 249999.99)!");
+            }
+        }
+
+        // --- Get maximum price ---
+        while (true) {
+            System.out.print("Enter the maximum price (or 'X' to go back): ");
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            if (isDouble(input)) {
+                max = Double.parseDouble(input);
+                if (max <= min) {
+                    System.out.println("Error: Max must be greater than min!");
+                    continue;
+                }
+                if (max > 5000000) {
+                    System.out.println("Error: Max must be less than 5,000,000!");
+                    continue;
+                }
+                break; // valid max entered
+            } else {
+                System.out.println("Error: Please enter a valid number (e.g. 100000 or 249999.99)!");
+            }
+        }
+
+        // --- Display results ---
+        List<Vehicle> results = dealership.getVehiclesByPrice(min, max);
+        if (results.isEmpty()) {
+            System.out.println("No vehicles found in that price range.");
+        } else {
+            System.out.printf("Vehicles between $%.2f and $%.2f:%n", min, max);
+            displayVehicles(results);
+        }
     }
 
     // Handle the user requests to get a list of vehicles by make & model

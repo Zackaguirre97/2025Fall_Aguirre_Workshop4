@@ -79,4 +79,9 @@ public class UserInterface {
     private void processAddVehicleRequest() {
 
     }
+
+    // Handle the user requests to remove a vehicle from the list
+    private void processRemoveVehicleRequest() {
+
+    }
 }

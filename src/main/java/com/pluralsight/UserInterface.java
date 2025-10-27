@@ -26,6 +26,7 @@ public class UserInterface {
     * */
     // Dealership instance
     private Dealership dealership;
+    private static Scanner sc = new Scanner(System.in);
 
     /*
      * *** Const ***
@@ -41,7 +42,6 @@ public class UserInterface {
     // *** Public ***
     // Display/Handle the main menu
     public void display() {
-        Scanner sc = new Scanner(System.in);
         // Local variables
         boolean running = true;
         // Initialize the dealership object instance.
@@ -77,6 +77,7 @@ public class UserInterface {
                 default -> System.out.println("\nInvalid entry: Please enter a number from the list (1-9 & 99)");
             }
         }
+        sc.close();
     }
 
     // *** Private ***
@@ -103,7 +104,6 @@ public class UserInterface {
     }
 
     private void processGetByPriceRequest() {
-        Scanner sc = new Scanner(System.in);
         double min = 0;
         double max = 0;
 
@@ -176,7 +176,6 @@ public class UserInterface {
     // Handle the user requests to get a list of vehicles by make & model
     private void processGetByMakeModelRequest() {
         // Method variables
-        Scanner sc = new Scanner(System.in);
         String make = "";
         String model = "";
         while (true) {
@@ -219,7 +218,6 @@ public class UserInterface {
 
     // Handle the user requests to get a list of vehicles by year
     private void processGetByYearRequest() {
-        Scanner sc = new Scanner(System.in);
         int min = 0;
         int max = 0;
 
@@ -292,7 +290,6 @@ public class UserInterface {
     // Handle the user requests to get a list of vehicles by color
     private void processGetByColorRequest() {
         // Method variables
-        Scanner sc = new Scanner(System.in);
         String color = "";
         while (true) {
             System.out.print("Enter the color (e.g. 'Blue', 'Red', 'Black', etc. OR 'X' to go back): ");
@@ -320,7 +317,6 @@ public class UserInterface {
 
     // Handle the user requests to get a list of vehicles by mileage
     private void processGetByMileageRequest() {
-        Scanner sc = new Scanner(System.in);
         int min = 0;
         int max = 0;
 
@@ -393,7 +389,6 @@ public class UserInterface {
     // Handle the user requests to get a list of vehicles by vehicle type
     private void processGetByVehicleTypeRequest() {
         // Method variables
-        Scanner sc = new Scanner(System.in);
         String type = "";
         while (true) {
             System.out.print("Enter the type (e.g. 'Coupe', 'Sedan', 'SUV', etc. OR 'X' to go back): ");
@@ -427,7 +422,6 @@ public class UserInterface {
 
     // Handle the user requests to add a vehicle to the list
     private void processAddVehicleRequest() {
-        Scanner sc = new Scanner(System.in);
         // Temp variables to store the new vehicle data.
         String vin;
         String year;
@@ -587,7 +581,6 @@ public class UserInterface {
 
     // Handle the user requests to remove a vehicle from the list
     private void processRemoveVehicleRequest() {
-        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
             String input = sc.nextLine();
@@ -614,7 +607,6 @@ public class UserInterface {
 
     // Handle the user requests to remove a vehicle from the list
     private void processPurchaseVehicleRequest() {
-        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
             String input = sc.nextLine();

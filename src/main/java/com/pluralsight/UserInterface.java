@@ -59,7 +59,7 @@ public class UserInterface {
             }
             else {
                 System.out.println("\nInvalid entry: Please enter a number (1, 2, 3, etc.)");
-                break;
+                continue;
             }
             // Evaluate the input and direct the user to the relevant method.
             switch(convertedMainMenuChoice) {

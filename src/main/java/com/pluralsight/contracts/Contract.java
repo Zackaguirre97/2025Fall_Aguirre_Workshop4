@@ -8,8 +8,6 @@ public abstract class Contract {
     private String customerName;
     private String customerEmail;
     private boolean vehicleSold;
-    private double totalPrice;
-    private double monthlyPayment;
     /*
      * *** Constructor ***
      * */

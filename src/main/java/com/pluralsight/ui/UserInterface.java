@@ -7,7 +7,6 @@ import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 
 import java.time.LocalDate;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 

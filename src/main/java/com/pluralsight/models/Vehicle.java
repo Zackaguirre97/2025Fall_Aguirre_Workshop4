@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.models;
 
 /*
 * Vehicle contains the following fields:

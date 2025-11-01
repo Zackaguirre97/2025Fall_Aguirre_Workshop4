@@ -1,7 +1,9 @@
-package com.pluralsight;
+package com.pluralsight.fileManagers;
+
+import com.pluralsight.models.Dealership;
+import com.pluralsight.models.Vehicle;
 
 import java.io.*;
-import java.time.format.DateTimeFormatter;
 
 /*
 * DealershipFileManager is responsible for all file operations for the program.

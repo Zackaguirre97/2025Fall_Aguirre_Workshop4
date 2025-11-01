@@ -1,6 +1,13 @@
-package com.pluralsight;
+package com.pluralsight.ui;
 
-import java.util.ArrayList;
+import com.pluralsight.contracts.LeaseContract;
+import com.pluralsight.contracts.SalesContract;
+import com.pluralsight.fileManagers.DealershipFileManager;
+import com.pluralsight.models.Dealership;
+import com.pluralsight.models.Vehicle;
+
+import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,6 +25,10 @@ import java.util.Scanner;
 * - processGetAllVehiclesRequest()
 * - processAddVehicleRequest()
 * - processRemoveVehicleRequest()
+* - processSaleRequest()
+* - displayVehicles()
+* - isInteger()
+* - isDouble()
 * UserInterface handles user interactions and executing the requested processes.
 */
 public class UserInterface {
@@ -72,9 +83,10 @@ public class UserInterface {
                 case 7 -> processGetAllVehiclesRequest();
                 case 8 -> processAddVehicleRequest();
                 case 9 -> processRemoveVehicleRequest();
-                case 10 -> processPurchaseVehicleRequest();
+                case 10 -> processSaleRequest();
+                case 11 -> processLeaseRequest();
                 case 99 -> running = false;
-                default -> System.out.println("\nInvalid entry: Please enter a number from the list (1-9 & 99)");
+                default -> System.out.println("\nInvalid entry: Enter a number from the list (1-9 & 99)");
             }
         }
         sc.close();
@@ -98,7 +110,8 @@ public class UserInterface {
         System.out.println("7. List ALL vehicles");
         System.out.println("8. Add a vehicle");
         System.out.println("9. Remove a vehicle");
-        System.out.println("10. Purchase a vehicle");
+        System.out.println("10. New Sales Contract");
+        System.out.println("11. New Lease Contract");
         System.out.println("99. Quit");
         System.out.print("Select an option: ");
     }
@@ -121,11 +134,11 @@ public class UserInterface {
 
             if (isDouble(input)) {
                 min = Double.parseDouble(input);
-                if (min < 50000) {
+                if (min <= 50000) {
                     System.out.println("Error: Please enter a value greater than 50,000!");
                     continue;
                 }
-                if (min > 5000000) {
+                if (min >= 5000000) {
                     System.out.println("Error: Min must be less than 5,000,000!");
                     continue;
                 }
@@ -153,7 +166,7 @@ public class UserInterface {
                     System.out.println("Error: Max must be greater than min!");
                     continue;
                 }
-                if (max > 5000000) {
+                if (max >= 5000000) {
                     System.out.println("Error: Max must be less than 5,000,000!");
                     continue;
                 }
@@ -235,11 +248,11 @@ public class UserInterface {
 
             if (isInteger(input)) {
                 min = Integer.parseInt(input);
-                if (min < 1950) {
+                if (min <= 1950) {
                     System.out.println("Error: Please enter a value greater than 1950!");
                     continue;
                 }
-                if (min > 2026) {
+                if (min >= 2026) {
                     System.out.println("Error: Min must be less than 2027!");
                     continue;
                 }
@@ -267,7 +280,7 @@ public class UserInterface {
                     System.out.println("Error: Max year must be greater than min year!");
                     continue;
                 }
-                if (max > 2026) {
+                if (max >= 2026) {
                     System.out.println("Error: Max must be less than 2026!");
                     continue;
                 }
@@ -339,7 +352,7 @@ public class UserInterface {
                     continue;
                 }
                 if (min > 500000) {
-                    System.out.println("Error: Min must be less than 150000!");
+                    System.out.println("Error: Min must be less than 500000!");
                     continue;
                 }
                 break; // valid min entered
@@ -366,7 +379,7 @@ public class UserInterface {
                     System.out.println("Error: Max mileage must be greater than min mileage!");
                     continue;
                 }
-                if (max > 500000) {
+                if (max >= 500000) {
                     System.out.println("Error: Max must be less than 500000!");
                     continue;
                 }
@@ -606,10 +619,18 @@ public class UserInterface {
     }
 
     // Handle the user requests to remove a vehicle from the list
-    private void processPurchaseVehicleRequest() {
-        while (true) {
+    private void processSaleRequest() {
+        // Properties
+        Vehicle vehicleToPurchase = null;
+        boolean wantFinance = false;
+        String customerName = "";
+        String customerEmail = "";
+        String input;
+
+        // Prompt the user to enter the vin for the vehicle they want to purchase.
+        while(true){
             System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
-            String input = sc.nextLine();
+            input = sc.nextLine();
             if (input == null || input.trim().isEmpty()) continue;
             input = input.trim();
 
@@ -618,18 +639,151 @@ public class UserInterface {
                 return;
             }
 
-            Vehicle vehicleToPurchase = dealership.getVehicleByVin(input);
+            vehicleToPurchase = dealership.getVehicleByVin(input);
             if (vehicleToPurchase == null) {
                 System.out.println("Error: No vehicle found matching that vin!");
-            } else {
-                System.out.println("Purchase successful!");
-                System.out.printf("Removing vehicle with vin: %s from the vehicle list.%n", input);
-                dealership.removeVehicle(vehicleToPurchase);
-                DealershipFileManager.saveDealership(dealership);
-                System.out.println("Process completed!");
+            }
+            break;
+        }
+
+        // Prompt the user to decide whether they want to finance.
+        while (true) {
+            System.out.print("Would you like to finance the vehicle? (T/F) or 'X' to go back: ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim().toUpperCase();
+
+            switch (input) {
+                case "X" -> {
+                    System.out.println("Going back...");
+                    return;
+                }
+                case "T", "F" -> {
+                    wantFinance = input.equals("T");
+                }
+                default -> {
+                    System.out.println("Invalid input! Please try again.\n");
+                    continue;
+                }
+            }
+            break;
+        }
+
+        // Prompt the user to enter the vin for the vehicle they want to purchase.
+        while(true){
+            System.out.print("Enter the customer name (e.g. 'Zack', 'Brooke', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
                 return;
             }
+
+            customerName = input;
+            break;
         }
+
+        // Prompt the user to enter the vin for the vehicle they want to purchase.
+        while(true){
+            System.out.print("Enter the customer email (e.g. 'zackattack@gmail.com', 'brooke123@yahoo.com', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            customerEmail = input;
+            break;
+        }
+
+        // Create the remaining variables required to create a SalesContract.
+        LocalDate currentDate = LocalDate.now();
+        String date = String.valueOf(currentDate);
+
+        // Create the new sales contract.
+        System.out.println("Creating a new SALES contract...");
+        SalesContract salesContract = new SalesContract(date, customerName, customerEmail, wantFinance, vehicleToPurchase);
+        //dealership.removeVehicle(vehicleToPurchase);
+        //DealershipFileManager.saveDealership(dealership);
+        System.out.println(salesContract);
+        System.out.println("Process completed!");
+    }
+
+    // Handle the user requests to remove a vehicle from the list
+    private void processLeaseRequest() {
+        // Properties
+        Vehicle vehicleToPurchase = null;
+        String customerName = "";
+        String customerEmail = "";
+        String input;
+
+        // Prompt the user to enter the vin for the vehicle they want to purchase.
+        while(true){
+            System.out.print("Enter the vin (e.g. '90008', '90010', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            vehicleToPurchase = dealership.getVehicleByVin(input);
+            if (vehicleToPurchase == null) {
+                System.out.println("Error: No vehicle found matching that vin!");
+            }
+            break;
+        }
+
+        // Prompt the user to enter the vin for the vehicle they want to purchase.
+        while(true){
+            System.out.print("Enter the customer name (e.g. 'Zack', 'Brooke', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            customerName = input;
+            break;
+        }
+
+        // Prompt the user to enter the vin for the vehicle they want to purchase.
+        while(true){
+            System.out.print("Enter the customer email (e.g. 'zackattack@gmail.com', 'brooke123@yahoo.com', etc. OR 'X' to go back): ");
+            input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back...");
+                return;
+            }
+
+            customerEmail = input;
+            break;
+        }
+
+        // Create the remaining variables required to create a SalesContract.
+        LocalDate currentDate = LocalDate.now();
+        String date = String.valueOf(currentDate);
+
+        // Create the new sales contract.
+        System.out.println("Creating a new LEASE contract...");
+        LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicleToPurchase);
+        //dealership.removeVehicle(vehicleToPurchase);
+        //DealershipFileManager.saveDealership(dealership);
+        System.out.println(leaseContract);
+        System.out.println("Process completed!");
     }
 
     // Handle the printing of the vehicle data

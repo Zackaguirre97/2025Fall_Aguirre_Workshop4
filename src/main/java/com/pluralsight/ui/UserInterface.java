@@ -2,6 +2,7 @@ package com.pluralsight.ui;
 
 import com.pluralsight.contracts.LeaseContract;
 import com.pluralsight.contracts.SalesContract;
+import com.pluralsight.fileManagers.ContractFileManager;
 import com.pluralsight.fileManagers.DealershipFileManager;
 import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
@@ -25,6 +26,7 @@ import java.util.Scanner;
 * - processAddVehicleRequest()
 * - processRemoveVehicleRequest()
 * - processSaleRequest()
+ * - processLeaseRequest()
 * - displayVehicles()
 * - isInteger()
 * - isDouble()
@@ -85,7 +87,7 @@ public class UserInterface {
                 case 10 -> processSaleRequest();
                 case 11 -> processLeaseRequest();
                 case 99 -> running = false;
-                default -> System.out.println("\nInvalid entry: Enter a number from the list (1-9 & 99)");
+                default -> System.out.println("\nInvalid entry: Enter a number from the list (1-11 & 99)");
             }
         }
         sc.close();
@@ -617,7 +619,7 @@ public class UserInterface {
         }
     }
 
-    // Handle the user requests to remove a vehicle from the list
+    // Handles user request to create a new sales contract and remove vehicle from inventory
     private void processSaleRequest() {
         // Properties
         Vehicle vehicleToPurchase = null;
@@ -641,6 +643,7 @@ public class UserInterface {
             vehicleToPurchase = dealership.getVehicleByVin(input);
             if (vehicleToPurchase == null) {
                 System.out.println("Error: No vehicle found matching that vin!");
+                continue;
             }
             break;
         }
@@ -701,22 +704,22 @@ public class UserInterface {
         }
 
         // Create the remaining variables required to create a SalesContract.
-        LocalDate currentDate = LocalDate.now();
-        String date = String.valueOf(currentDate);
+        String date = LocalDate.now().toString();
 
         // Create the new sales contract.
         System.out.println("Creating a new SALES contract...");
         SalesContract salesContract = new SalesContract(date, customerName, customerEmail, wantFinance, vehicleToPurchase);
-        //dealership.removeVehicle(vehicleToPurchase);
-        //DealershipFileManager.saveDealership(dealership);
+        ContractFileManager.addContractToFile(salesContract);
+        dealership.removeVehicle(vehicleToPurchase);
+        DealershipFileManager.saveDealership(dealership);
         System.out.println(salesContract);
-        System.out.println("Process completed!");
+        System.out.println("\nProcess completed successfully!\n");
     }
 
-    // Handle the user requests to remove a vehicle from the list
+    // Handles user request to create a new lease contract and remove vehicle from inventory
     private void processLeaseRequest() {
         // Properties
-        Vehicle vehicleToPurchase = null;
+        Vehicle vehicleToLease = null;
         String customerName = "";
         String customerEmail = "";
         String input;
@@ -733,9 +736,10 @@ public class UserInterface {
                 return;
             }
 
-            vehicleToPurchase = dealership.getVehicleByVin(input);
-            if (vehicleToPurchase == null) {
+            vehicleToLease = dealership.getVehicleByVin(input);
+            if (vehicleToLease == null) {
                 System.out.println("Error: No vehicle found matching that vin!");
+                continue;
             }
             break;
         }
@@ -773,16 +777,16 @@ public class UserInterface {
         }
 
         // Create the remaining variables required to create a SalesContract.
-        LocalDate currentDate = LocalDate.now();
-        String date = String.valueOf(currentDate);
+        String date = LocalDate.now().toString();
 
         // Create the new sales contract.
         System.out.println("Creating a new LEASE contract...");
-        LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicleToPurchase);
-        //dealership.removeVehicle(vehicleToPurchase);
-        //DealershipFileManager.saveDealership(dealership);
+        LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicleToLease);
+        ContractFileManager.addContractToFile(leaseContract);
+        dealership.removeVehicle(vehicleToLease);
+        DealershipFileManager.saveDealership(dealership);
         System.out.println(leaseContract);
-        System.out.println("Process completed!");
+        System.out.println("\nProcess completed successfully!\n");
     }
 
     // Handle the printing of the vehicle data

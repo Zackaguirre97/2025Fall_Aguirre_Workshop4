@@ -170,7 +170,7 @@ public class Dealership {
 
     // Add a vehicle to the list.
     public void addVehicle(Vehicle vehicle) {
-        this.vehicleList.add(0, vehicle);
+        this.vehicleList.add(vehicle);
     }
 
     // Remove a vehicle from the list of vehicles.

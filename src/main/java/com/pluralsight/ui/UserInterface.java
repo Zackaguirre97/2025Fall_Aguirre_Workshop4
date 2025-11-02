@@ -10,7 +10,6 @@ import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -126,8 +125,8 @@ public class UserInterface {
     }
 
     private void processGetByPriceRequest() {
-        double min = 0;
-        double max = 0;
+        double min;
+        double max;
 
         // --- Get minimum price ---
         while (true) {
@@ -198,8 +197,8 @@ public class UserInterface {
     // Handle the user requests to get a list of vehicles by make & model
     private void processGetByMakeModelRequest() {
         // Method variables
-        String make = "";
-        String model = "";
+        String make;
+        String model;
         while (true) {
             System.out.print("Enter the make (e.g. 'Porsche', 'Ferrari', 'Nissan', etc. OR 'X' to go back): ");
             String input = sc.nextLine();
@@ -240,8 +239,8 @@ public class UserInterface {
 
     // Handle the user requests to get a list of vehicles by year
     private void processGetByYearRequest() {
-        int min = 0;
-        int max = 0;
+        int min;
+        int max;
 
         // --- Get minimum year ---
         while (true) {
@@ -312,7 +311,7 @@ public class UserInterface {
     // Handle the user requests to get a list of vehicles by color
     private void processGetByColorRequest() {
         // Method variables
-        String color = "";
+        String color;
         while (true) {
             System.out.print("Enter the color (e.g. 'Blue', 'Red', 'Black', etc. OR 'X' to go back): ");
             String input = sc.nextLine();
@@ -339,8 +338,8 @@ public class UserInterface {
 
     // Handle the user requests to get a list of vehicles by mileage
     private void processGetByMileageRequest() {
-        int min = 0;
-        int max = 0;
+        int min;
+        int max;
 
         // --- Get minimum year ---
         while (true) {
@@ -411,7 +410,7 @@ public class UserInterface {
     // Handle the user requests to get a list of vehicles by vehicle type
     private void processGetByVehicleTypeRequest() {
         // Method variables
-        String type = "";
+        String type;
         while (true) {
             System.out.print("Enter the type (e.g. 'Coupe', 'Sedan', 'SUV', etc. OR 'X' to go back): ");
             String input = sc.nextLine();
@@ -630,10 +629,10 @@ public class UserInterface {
     // Handles user request to create a new sales contract and remove vehicle from inventory
     private void processSaleRequest() {
         // Properties
-        Vehicle vehicleToPurchase = null;
-        boolean wantFinance = false;
-        String customerName = "";
-        String customerEmail = "";
+        Vehicle vehicleToPurchase;
+        boolean wantFinance;
+        String customerName;
+        String customerEmail;
         String input;
 
         // Prompt the user to enter the vin for the vehicle they want to purchase.
@@ -658,7 +657,7 @@ public class UserInterface {
 
         // Prompt the user to decide whether they want to finance.
         while (true) {
-            System.out.print("Would you like to finance the vehicle? (T/F) or 'X' to go back: ");
+            System.out.print("Would you like to finance the vehicle? (Y/N) or 'X' to go back: ");
             input = sc.nextLine();
             if (input == null || input.trim().isEmpty()) continue;
             input = input.trim().toUpperCase();
@@ -668,9 +667,7 @@ public class UserInterface {
                     System.out.println("GOING BACK...");
                     return;
                 }
-                case "T", "F" -> {
-                    wantFinance = input.equals("T");
-                }
+                case "Y", "N" -> wantFinance = input.equals("Y");
                 default -> {
                     System.out.println("ERROR: Invalid input! Please try again.\n");
                     continue;
@@ -727,9 +724,9 @@ public class UserInterface {
     // Handles user request to create a new lease contract and remove vehicle from inventory
     private void processLeaseRequest() {
         // Properties
-        Vehicle vehicleToLease = null;
-        String customerName = "";
-        String customerEmail = "";
+        Vehicle vehicleToLease;
+        String customerName;
+        String customerEmail;
         String input;
 
         // Prompt the user to enter the vin for the vehicle they want to purchase.
@@ -798,8 +795,8 @@ public class UserInterface {
     }
 
     private void processReturnVehicleRequest() {
-        Contract contract = null;
-        Vehicle vehicleToReturn = null;
+        Contract contract;
+        Vehicle vehicleToReturn;
 
         while (true) {
             String vin = promptInput("Enter the VIN (e.g. '90008', '90010', etc. OR 'X' to go back): ");

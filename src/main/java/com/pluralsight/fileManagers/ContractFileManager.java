@@ -4,12 +4,9 @@ import com.pluralsight.contracts.Contract;
 import com.pluralsight.contracts.LeaseContract;
 import com.pluralsight.contracts.SalesContract;
 import com.pluralsight.models.ContractDataManager;
-import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * ContractFileManager is responsible for all contract/contracts file operations for the program.

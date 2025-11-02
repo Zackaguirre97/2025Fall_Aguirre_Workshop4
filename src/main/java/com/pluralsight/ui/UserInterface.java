@@ -839,22 +839,34 @@ public class UserInterface {
     }
 
 
-    // Handle the printing of the vehicle data
+    // Handle the printing of the vehicle data with aligned columns
     private void displayVehicles(List<Vehicle> vehiclesToDisplay) {
         // Sort vehicleList by VIN in ascending order
         vehiclesToDisplay.sort(Comparator.comparing(Vehicle::getVin));
-        for(Vehicle vehicle : vehiclesToDisplay) {
-            System.out.printf("%s|%s|%s|%s|%s|%s|%d|%.2f\n",
-                    vehicle.getVin(),           // Vin
-                    vehicle.getYear(),          // Year
-                    vehicle.getMake(),          // Make
-                    vehicle.getModel(),         // Model
-                    vehicle.getVehicleType(),   // Vehicle Type
-                    vehicle.getColor(),         // Color
-                    vehicle.getOdometer(),      // Odometer
-                    vehicle.getPrice()          // Price
+
+        // Page width
+        int width = 117;
+
+        // Print header
+        System.out.println("-".repeat(width));
+        System.out.printf("%-6s | %-4s | %-15s | %-20s | %-12s | %-20s | %-8s | %-12s%n",
+                "VIN", "Year", "Make", "Model", "Type", "Color", "Odometer", "Price");
+        System.out.println("-".repeat(width));
+
+        // Print vehicle data
+        for (Vehicle vehicle : vehiclesToDisplay) {
+            System.out.printf("%-6s | %-4s | %-15s | %-20s | %-12s | %-20s | %-8d | $%-11.2f%n",
+                    vehicle.getVin(),
+                    vehicle.getYear(),
+                    vehicle.getMake(),
+                    vehicle.getModel(),
+                    vehicle.getVehicleType(),
+                    vehicle.getColor(),
+                    vehicle.getOdometer(),
+                    vehicle.getPrice()
             );
         }
+        System.out.println("-".repeat(width));
     }
 
     // Helper method for prompting input

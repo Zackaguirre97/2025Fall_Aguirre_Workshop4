@@ -38,6 +38,15 @@ public class LeaseContract extends Contract{
     public void setLeaseFee(double leaseFee) {
         this.leaseFee = leaseFee;
     }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
     /*
      * *** Methods ***
      * */

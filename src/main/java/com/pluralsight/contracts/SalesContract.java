@@ -24,7 +24,7 @@ public class SalesContract extends Contract{
         super(date, customerName, customerEmail, true);
         // SalesContract properties/fields
         this.vehicle = vehicle;
-        this.salesTax = .05;
+        this.salesTax = calculateSalesTax();
         this.recordingFee = 100;
         this.isFinanced = isFinanced;
         this.processingFee = calculateProcessingFee();
@@ -59,9 +59,21 @@ public class SalesContract extends Contract{
     public void setFinanced(boolean financed) {
         isFinanced = financed;
     }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
     /*
      * *** Methods ***
      * */
+    private double calculateSalesTax() {
+        return vehicle.getPrice() * .05;
+    }
     private double calculateProcessingFee() {
         return (vehicle.getPrice() <= 10000) ? 295 : 495;
     }

@@ -6,7 +6,7 @@ import com.pluralsight.models.Vehicle;
 import java.io.*;
 
 /*
-* DealershipFileManager is responsible for all file operations for the program.
+* DealershipFileManager is responsible for all dealership/inventory file operations for the program.
 * DealershipFileManager contains the following methods:
 * - getDealership(): Dealership
 *   - can create a new Dealership object by reading a file.
@@ -63,13 +63,13 @@ public class DealershipFileManager {
     // Save a dealership object (and its List of Vehicle objects) to a file.
     public static void saveDealership(Dealership dealership) {
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            writer.write(String.format("%s|%s|%s\n",
+            writer.write(String.format("%s|%s|%s%n",
                     dealership.getName(),       // Dealership name
                     dealership.getAddress(),    // Dealership address
                     dealership.getPhone()       // Dealership phone
             ));
             for (Vehicle vehicle : dealership.getVehicleList()) {
-                writer.write(String.format("%s|%s|%s|%s|%s|%s|%d|%.2f\n",
+                writer.write(String.format("%s|%s|%s|%s|%s|%s|%d|%.2f%n",
                         vehicle.getVin(),           // Vin
                         vehicle.getYear(),          // Year
                         vehicle.getMake(),          // Make

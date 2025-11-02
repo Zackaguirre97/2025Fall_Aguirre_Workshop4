@@ -9,14 +9,12 @@ public class LeaseContract extends Contract{
     * */
     private double expectedEndingValue;
     private double leaseFee;
-    private Vehicle vehicle;
     public static final int TERM = 36;
     /*
      * *** Constructor ***
      * */
     public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicle) {
-        super(date, customerName, customerEmail, false);
-        this.vehicle = vehicle;
+        super(date, customerName, customerEmail, false, vehicle);
         this.expectedEndingValue = calculateExpectedEndingValue();
         this.leaseFee = calculateLeaseFee();
     }
@@ -38,15 +36,6 @@ public class LeaseContract extends Contract{
     public void setLeaseFee(double leaseFee) {
         this.leaseFee = leaseFee;
     }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
     /*
      * *** Methods ***
      * */

@@ -10,7 +10,6 @@ public class SalesContract extends Contract{
     private double recordingFee;
     private double processingFee;
     private boolean isFinanced;
-    private Vehicle vehicle;
     /*
      * *** Constructor ***
      * */
@@ -21,9 +20,8 @@ public class SalesContract extends Contract{
                          boolean isFinanced,
                          Vehicle vehicle){
         // Contract properties/fields
-        super(date, customerName, customerEmail, true);
+        super(date, customerName, customerEmail, true, vehicle);
         // SalesContract properties/fields
-        this.vehicle = vehicle;
         this.salesTax = calculateSalesTax();
         this.recordingFee = 100;
         this.isFinanced = isFinanced;
@@ -60,14 +58,6 @@ public class SalesContract extends Contract{
         isFinanced = financed;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
     /*
      * *** Methods ***
      * */
@@ -97,12 +87,15 @@ public class SalesContract extends Contract{
     @Override
     public double getTotalPrice() {
         double basePrice = vehicle.getPrice();
-        double total = basePrice + (basePrice * salesTax) + recordingFee + getProcessingFee();
+        double subtotal = basePrice + salesTax + recordingFee + getProcessingFee();
+
         if (isFinanced) {
             int term = basePrice >= 10000 ? 48 : 24;
-            total = getMonthlyPayment() * term; // finance includes interest, so this overrides base total
+            double monthlyRate = (basePrice >= 10000) ? (0.0425 / 12) : (0.0525 / 12);
+            double financedMonthly = (subtotal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
+            return financedMonthly * term; // now includes interest *and* taxes/fees
         }
-        return total;
+        return subtotal;
     }
 
     @Override

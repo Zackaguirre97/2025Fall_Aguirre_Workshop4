@@ -75,7 +75,7 @@ public class UserInterface {
                 convertedMainMenuChoice = Integer.parseInt(mainMenuChoice);
             }
             else {
-                System.out.println("\nInvalid entry: Please enter a number (1, 2, 3, etc.)");
+                System.out.println("\nINVALID ENTRY: Please enter a number (1, 2, 3, etc.)");
                 continue;
             }
             // Evaluate the input and direct the user to the relevant method.
@@ -93,7 +93,7 @@ public class UserInterface {
                 case 11 -> processLeaseRequest();
                 case 12 -> processReturnVehicleRequest();
                 case 99 -> running = false;
-                default -> System.out.println("\nInvalid entry: Enter a number from the list (1-12 & 99)");
+                default -> System.out.println("\nINVALID ENTRY: Enter a number from the list (1-12 & 99)");
             }
         }
         sc.close();
@@ -103,7 +103,6 @@ public class UserInterface {
     // Handle initializing the Dealership
     private void init() {
         this.dealership = DealershipFileManager.getDealership();
-        System.out.println("Still fine");
         this.contractDataManager = ContractFileManager.getContracts();
     }
 
@@ -138,23 +137,23 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isDouble(input)) {
                 min = Double.parseDouble(input);
                 if (min <= 50000) {
-                    System.out.println("Error: Please enter a value greater than 50,000!");
+                    System.out.println("ERROR: Please enter a value greater than 50,000!");
                     continue;
                 }
                 if (min >= 5000000) {
-                    System.out.println("Error: Min must be less than 5,000,000!");
+                    System.out.println("ERROR: Min must be less than 5,000,000!");
                     continue;
                 }
                 break; // valid min entered
             } else {
-                System.out.println("Error: Please enter a valid number (e.g. 100000 or 249999.99)!");
+                System.out.println("ERROR: Please enter a valid number (e.g. 100000 or 249999.99)!");
             }
         }
 
@@ -166,23 +165,23 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isDouble(input)) {
                 max = Double.parseDouble(input);
                 if (max <= min) {
-                    System.out.println("Error: Max must be greater than min!");
+                    System.out.println("ERROR: Max must be greater than min!");
                     continue;
                 }
                 if (max >= 5000000) {
-                    System.out.println("Error: Max must be less than 5,000,000!");
+                    System.out.println("ERROR: Max must be less than 5,000,000!");
                     continue;
                 }
                 break; // valid max entered
             } else {
-                System.out.println("Error: Please enter a valid number (e.g. 100000 or 249999.99)!");
+                System.out.println("ERROR: Please enter a valid number (e.g. 100000 or 249999.99)!");
             }
         }
 
@@ -208,7 +207,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
             make = input;
@@ -222,7 +221,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
             model = input;
@@ -252,23 +251,23 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isInteger(input)) {
                 min = Integer.parseInt(input);
                 if (min <= 1950) {
-                    System.out.println("Error: Please enter a value greater than 1950!");
+                    System.out.println("ERROR: Please enter a value greater than 1950!");
                     continue;
                 }
                 if (min >= 2026) {
-                    System.out.println("Error: Min must be less than 2027!");
+                    System.out.println("ERROR: Min must be less than 2027!");
                     continue;
                 }
                 break; // valid min entered
             } else {
-                System.out.println("Error: Please enter a valid number (e.g. 1990 or 2025)!");
+                System.out.println("ERROR: Please enter a valid number (e.g. 1990 or 2025)!");
             }
         }
 
@@ -280,23 +279,23 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isInteger(input)) {
                 max = Integer.parseInt(input);
                 if (max <= min) {
-                    System.out.println("Error: Max year must be greater than min year!");
+                    System.out.println("ERROR: Max year must be greater than min year!");
                     continue;
                 }
                 if (max >= 2026) {
-                    System.out.println("Error: Max must be less than 2026!");
+                    System.out.println("ERROR: Max must be less than 2026!");
                     continue;
                 }
                 break; // valid max entered
             } else {
-                System.out.println("Error: Please enter a valid number (e.g. 1990 or 2025)!");
+                System.out.println("ERROR: Please enter a valid number (e.g. 1990 or 2025)!");
             }
         }
 
@@ -321,7 +320,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
             color = input;
@@ -351,23 +350,23 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isInteger(input)) {
                 min = Integer.parseInt(input);
                 if (min < 1) {
-                    System.out.println("Error: Please enter a value greater than 0!");
+                    System.out.println("ERROR: Please enter a value greater than 0!");
                     continue;
                 }
                 if (min > 500000) {
-                    System.out.println("Error: Min must be less than 500000!");
+                    System.out.println("ERROR: Min must be less than 500000!");
                     continue;
                 }
                 break; // valid min entered
             } else {
-                System.out.println("Error: Please enter a valid number (e.g. 50 or 125000)!");
+                System.out.println("ERROR: Please enter a valid number (e.g. 50 or 125000)!");
             }
         }
 
@@ -379,23 +378,23 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isInteger(input)) {
                 max = Integer.parseInt(input);
                 if (max <= min) {
-                    System.out.println("Error: Max mileage must be greater than min mileage!");
+                    System.out.println("ERROR: Max mileage must be greater than min mileage!");
                     continue;
                 }
                 if (max >= 500000) {
-                    System.out.println("Error: Max must be less than 500000!");
+                    System.out.println("ERROR: Max must be less than 500000!");
                     continue;
                 }
                 break; // valid max entered
             } else {
-                System.out.println("Error: Please enter a valid number (e.g. 50 or 1250000)!");
+                System.out.println("ERROR: Please enter a valid number (e.g. 50 or 1250000)!");
             }
         }
 
@@ -420,7 +419,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
             type = input;
@@ -463,7 +462,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -478,7 +477,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -493,7 +492,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -508,7 +507,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -523,7 +522,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -538,7 +537,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -553,18 +552,18 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isInteger(input)) {
                 odometer = Integer.parseInt(input);
                 if (odometer < 0) {
-                    System.out.println("Error: Please enter a positive number!");
+                    System.out.println("ERROR: Please enter a positive number!");
                     continue;
                 }
             } else {
-                System.out.println("Error: Please enter a number!");
+                System.out.println("ERROR: Please enter a number!");
                 continue;
             }
             break;
@@ -577,18 +576,18 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             if (isDouble(input)) {
                 price = Double.parseDouble(input);
                 if (price < 0) {
-                    System.out.println("Error: Please enter a positive number!");
+                    System.out.println("ERROR: Please enter a positive number!");
                     continue;
                 }
             } else {
-                System.out.println("Error: Please enter a number!");
+                System.out.println("ERROR: Please enter a number!");
                 continue;
             }
             break;
@@ -596,10 +595,10 @@ public class UserInterface {
 
         Vehicle vehicleToAdd = new Vehicle(vin, year, make, model, type, color, odometer, price);
 
-        System.out.println("Adding vehicle...");
+        System.out.println("ADDING VEHICLE...");
         dealership.addVehicle(vehicleToAdd);
         DealershipFileManager.saveDealership(dealership);
-        System.out.println("Process completed!");
+        System.out.println("PROCESS COMPLETED!");
     }
 
     // Handle the user requests to remove a vehicle from the list
@@ -611,18 +610,18 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             Vehicle vehicleToRemove = dealership.getVehicleByVin(input);
             if (vehicleToRemove == null) {
-                System.out.println("Error: No vehicle found matching that vin!");
+                System.out.println("ERROR: No vehicle found matching that vin!");
             } else {
-                System.out.printf("Removing vehicle with vin: %s%n", input);
+                System.out.printf("REMOVING VEHICLE with VIN: %s from the DEALERSHIP%n", input);
                 dealership.removeVehicle(vehicleToRemove);
                 DealershipFileManager.saveDealership(dealership);
-                System.out.println("Process completed!");
+                System.out.println("PROCESS COMPLETED!");
                 return;
             }
         }
@@ -645,13 +644,13 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             vehicleToPurchase = dealership.getVehicleByVin(input);
             if (vehicleToPurchase == null) {
-                System.out.println("Error: No vehicle found matching that vin!");
+                System.out.println("ERROR: No vehicle found matching that vin!");
                 continue;
             }
             break;
@@ -666,14 +665,14 @@ public class UserInterface {
 
             switch (input) {
                 case "X" -> {
-                    System.out.println("Going back...");
+                    System.out.println("GOING BACK...");
                     return;
                 }
                 case "T", "F" -> {
                     wantFinance = input.equals("T");
                 }
                 default -> {
-                    System.out.println("Invalid input! Please try again.\n");
+                    System.out.println("ERROR: Invalid input! Please try again.\n");
                     continue;
                 }
             }
@@ -688,7 +687,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -704,7 +703,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -716,13 +715,13 @@ public class UserInterface {
         String date = LocalDate.now().toString();
 
         // Create the new sales contract.
-        System.out.println("Creating a new SALES contract...");
+        System.out.println("CREATING a new SALES CONTRACT...");
         SalesContract salesContract = new SalesContract(date, customerName, customerEmail, wantFinance, vehicleToPurchase);
         ContractFileManager.addContractToFile(salesContract);
         dealership.removeVehicle(vehicleToPurchase);
         DealershipFileManager.saveDealership(dealership);
         System.out.println(salesContract);
-        System.out.println("\nProcess completed successfully!\n");
+        System.out.println("\nPROCESS COMPLETED!\n");
     }
 
     // Handles user request to create a new lease contract and remove vehicle from inventory
@@ -741,13 +740,13 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
             vehicleToLease = dealership.getVehicleByVin(input);
             if (vehicleToLease == null) {
-                System.out.println("Error: No vehicle found matching that vin!");
+                System.out.println("ERROR: No vehicle found matching that vin!");
                 continue;
             }
             break;
@@ -761,7 +760,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -777,7 +776,7 @@ public class UserInterface {
             input = input.trim();
 
             if (input.equalsIgnoreCase("X")) {
-                System.out.println("Going back...");
+                System.out.println("GOING BACK...");
                 return;
             }
 
@@ -789,13 +788,13 @@ public class UserInterface {
         String date = LocalDate.now().toString();
 
         // Create the new sales contract.
-        System.out.println("Creating a new LEASE contract...");
+        System.out.println("CREATING a new LEASE CONTRACT...");
         LeaseContract leaseContract = new LeaseContract(date, customerName, customerEmail, vehicleToLease);
         ContractFileManager.addContractToFile(leaseContract);
         dealership.removeVehicle(vehicleToLease);
         DealershipFileManager.saveDealership(dealership);
         System.out.println(leaseContract);
-        System.out.println("\nProcess completed successfully!\n");
+        System.out.println("\nPROCESS COMPLETED!\n");
     }
 
     private void processReturnVehicleRequest() {
@@ -828,7 +827,7 @@ public class UserInterface {
 
             vehicleToReturn = contract.getVehicle();
             if (vehicleToReturn == null) {
-                System.out.println("ERROR: Contract found, but vehicle data is missing!");
+                System.out.println("ERROR: CONTRACT found, but VEHICLE data is missing!");
                 continue;
             }
 

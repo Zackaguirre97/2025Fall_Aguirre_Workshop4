@@ -1,13 +1,17 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.contracts.Contract;
 import com.pluralsight.contracts.LeaseContract;
 import com.pluralsight.contracts.SalesContract;
 import com.pluralsight.fileManagers.ContractFileManager;
 import com.pluralsight.fileManagers.DealershipFileManager;
+import com.pluralsight.models.ContractDataManager;
 import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +30,7 @@ import java.util.Scanner;
 * - processAddVehicleRequest()
 * - processRemoveVehicleRequest()
 * - processSaleRequest()
- * - processLeaseRequest()
+* - processLeaseRequest()
 * - displayVehicles()
 * - isInteger()
 * - isDouble()
@@ -38,6 +42,7 @@ public class UserInterface {
     * */
     // Dealership instance
     private Dealership dealership;
+    private ContractDataManager contractDataManager;
     private static Scanner sc = new Scanner(System.in);
 
     /*
@@ -86,8 +91,9 @@ public class UserInterface {
                 case 9 -> processRemoveVehicleRequest();
                 case 10 -> processSaleRequest();
                 case 11 -> processLeaseRequest();
+                case 12 -> processReturnVehicleRequest();
                 case 99 -> running = false;
-                default -> System.out.println("\nInvalid entry: Enter a number from the list (1-11 & 99)");
+                default -> System.out.println("\nInvalid entry: Enter a number from the list (1-12 & 99)");
             }
         }
         sc.close();
@@ -97,6 +103,8 @@ public class UserInterface {
     // Handle initializing the Dealership
     private void init() {
         this.dealership = DealershipFileManager.getDealership();
+        System.out.println("Still fine");
+        this.contractDataManager = ContractFileManager.getContracts();
     }
 
     // Print the main menu to the console
@@ -113,6 +121,7 @@ public class UserInterface {
         System.out.println("9. Remove a vehicle");
         System.out.println("10. New Sales Contract");
         System.out.println("11. New Lease Contract");
+        System.out.println("12. Return Vehicle");
         System.out.println("99. Quit");
         System.out.print("Select an option: ");
     }
@@ -789,8 +798,55 @@ public class UserInterface {
         System.out.println("\nProcess completed successfully!\n");
     }
 
+    private void processReturnVehicleRequest() {
+        Contract contract = null;
+        Vehicle vehicleToReturn = null;
+
+        while (true) {
+            String vin = promptInput("Enter the VIN (e.g. '90008', '90010', etc. OR 'X' to go back): ");
+            if (vin == null) return;
+
+            String customerName = promptInput("Enter the customer name (e.g. 'Zack', 'Brooke', etc. OR 'X' to go back): ");
+            if (customerName == null) return;
+
+            String date = promptInput("Enter the START date of the contract (e.g. '2010-10-15', '2025-06-01', etc. OR 'X' to go back): ");
+            if (date == null) return;
+
+            System.out.println("SEARCHING for CONTRACT...");
+            contract = contractDataManager.searchForContract(vin, customerName, date);
+
+            if (contract == null) {
+                System.out.println("ERROR: NO CONTRACT found matching the provided credentials!");
+                continue;
+            }
+
+            Vehicle checkVehicle = dealership.getVehicleByVin(vin);
+            if (checkVehicle != null) {
+                System.out.println("ERROR: VEHICLE already in DEALERSHIP!");
+                continue;
+            }
+
+            vehicleToReturn = contract.getVehicle();
+            if (vehicleToReturn == null) {
+                System.out.println("ERROR: Contract found, but vehicle data is missing!");
+                continue;
+            }
+
+            break; // Contract and vehicle found
+        }
+
+        System.out.println("TERMINATING CONTRACT...");
+        System.out.printf("RETURNING VEHICLE with VIN: %s to the DEALERSHIP...%n", vehicleToReturn.getVin());
+        dealership.addVehicle(vehicleToReturn);
+        DealershipFileManager.saveDealership(dealership);
+        System.out.println("\nPROCESS COMPLETED!\n");
+    }
+
+
     // Handle the printing of the vehicle data
     private void displayVehicles(List<Vehicle> vehiclesToDisplay) {
+        // Sort vehicleList by VIN in ascending order
+        vehiclesToDisplay.sort(Comparator.comparing(Vehicle::getVin));
         for(Vehicle vehicle : vehiclesToDisplay) {
             System.out.printf("%s|%s|%s|%s|%s|%s|%d|%.2f\n",
                     vehicle.getVin(),           // Vin
@@ -802,6 +858,18 @@ public class UserInterface {
                     vehicle.getOdometer(),      // Odometer
                     vehicle.getPrice()          // Price
             );
+        }
+    }
+
+    // Helper method for prompting input
+    private String promptInput(String message) {
+        while (true) {
+            System.out.print(message);
+            String input = sc.nextLine();
+            if (input == null || input.trim().isEmpty()) continue;
+            input = input.trim();
+            if (input.equalsIgnoreCase("X")) return null;
+            return input;
         }
     }
 

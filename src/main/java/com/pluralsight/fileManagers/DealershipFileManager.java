@@ -4,6 +4,7 @@ import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 
 import java.io.*;
+import java.util.Comparator;
 
 /*
 * DealershipFileManager is responsible for all dealership/inventory file operations for the program.
@@ -68,6 +69,7 @@ public class DealershipFileManager {
                     dealership.getAddress(),    // Dealership address
                     dealership.getPhone()       // Dealership phone
             ));
+            dealership.getVehicleList().sort(Comparator.comparing(Vehicle::getVin));
             for (Vehicle vehicle : dealership.getVehicleList()) {
                 writer.write(String.format("%s|%s|%s|%s|%s|%s|%d|%.2f%n",
                         vehicle.getVin(),           // Vin
@@ -80,8 +82,6 @@ public class DealershipFileManager {
                         vehicle.getPrice()          // Price
                 ));
             }
-            // Close the writer
-            writer.close();
         }
         catch(IOException e) {
             System.out.println("Error: IOException");
